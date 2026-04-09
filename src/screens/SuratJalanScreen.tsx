@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, Share2, Printer, Eye, Send, CheckCircle, Shield } from 'lucide-react';
 import { Button } from '../components/Button';
-import { Badge } from '../components/Badge';
 import { fetchApiData } from '../data/api';
 import type { ApiRow } from '../data/api';
 import { useStore } from '../store/useStore';
@@ -51,7 +50,7 @@ export function SuratJalanScreen() {
   const [kodeVerifikasi, setKodeVerifikasi] = useState<string>('');
   const [showAdminModal, setShowAdminModal] = useState(false);
 
-  const { isAdmin, approvals, approveSuratJalan } = useStore();
+  const { approvals, approveSuratJalan } = useStore();
 
   const getApprovalStatus = useCallback(() => {
     if (!row) return null;

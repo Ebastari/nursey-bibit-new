@@ -265,7 +265,7 @@ export const useStore = create<AppState>((set, get) => ({
         jumlah: 0,
         tujuan: '-',
         status: 'approved',
-        dibuatoleh: approvedBy,
+        dibuatOleh: approvedBy,
         approvedBy,
         approvedAt: new Date().toISOString(),
       };
@@ -293,7 +293,7 @@ export const useStore = create<AppState>((set, get) => ({
         jumlah: 0,
         tujuan: '-',
         status: 'rejected',
-        dibuatoleh: '-',
+        dibuatOleh: '-',
         rejectionReason: reason,
       };
       return { approvals: [newApproval, ...state.approvals] };

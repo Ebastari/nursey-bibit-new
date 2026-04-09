@@ -8,14 +8,11 @@ import {
   loadOptions,
   getQuickReplies,
   processStep,
-  parseFreeInput,
   getSuccessMessage,
   getSuccessStep,
   type Step,
   type FormData,
   type DropdownData,
-  type StokMap,
-  type ParsedInput,
 } from './chatbotLogic';
 import { api } from '../../data/mockData';
 
@@ -83,7 +80,6 @@ function ProgressBar({ step }: { step: Step }) {
 }
 
 export function ChatbotPanel({ onClose, mode = 'input' }: { onClose: () => void; mode?: 'input' | 'info' }) {
-  const [parsedInput, setParsedInput] = useState<ParsedInput | null>(null);
   const navigate = useNavigate();
 
   // Mode: 'input' = fast input, 'info' = asisten info bibit
@@ -181,7 +177,7 @@ export function ChatbotPanel({ onClose, mode = 'input' }: { onClose: () => void;
         // Ambil data kematian per jenis dari API
         try {
           const apiRows = await import('../../data/api').then((mod) => mod.fetchApiData());
-          const kematianMap = {};
+          const kematianMap: Record<string, number> = {};
           apiRows.forEach((row) => {
             const key = row.bibit.trim().toUpperCase();
             if (!kematianMap[key]) kematianMap[key] = 0;
@@ -219,14 +215,14 @@ export function ChatbotPanel({ onClose, mode = 'input' }: { onClose: () => void;
               return;
             }
             // Rekap jumlah keluar per jenis bibit
-            const rekap = {};
+            const rekap: Record<string, number> = {};
             rowsTim.forEach((row) => {
               const key = row.bibit.trim();
               if (!rekap[key]) rekap[key] = 0;
               rekap[key] += row.keluar || 0;
             });
             let msg = `**Distribusi ke Tim ${timName.charAt(0) + timName.slice(1).toLowerCase()}:**\n`;
-            Object.keys(rekap).sort().forEach((b) => {
+            Object.keys(rekap).sort().forEach((b: string) => {
               msg += `• ${b}: ${rekap[b].toLocaleString('id-ID')} bibit\n`;
             });
             msg += `\nTotal distribusi: ${rowsTim.reduce((a, b) => a + (b.keluar || 0), 0).toLocaleString('id-ID')} bibit`;

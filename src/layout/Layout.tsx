@@ -1,7 +1,6 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { LayoutGrid, ClipboardPen, Camera, Package, Bell, Shield } from 'lucide-react';
 import { NotificationBell } from '../components/NotificationBell';
-import { ChatbotButton } from '../components/chatbot/ChatbotButton';
 import { useStore } from '../store/useStore';
 
 const COMPANY_LOGO = 'https://i.ibb.co.com/xSTT9wJK/download.png';
@@ -40,7 +39,7 @@ export function Layout() {
         </div>
         <h1 className="text-[15px] font-semibold tracking-wide truncate flex-1">{title}</h1>
         <NotificationBell />
-{isAdmin && (
+        {isAdmin && (
           <NavLink to="/approval" className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/20 text-xs font-semibold">
             <Shield className="w-4 h-4" />
             Admin
